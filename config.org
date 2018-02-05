@@ -5,56 +5,37 @@
 (require 'package)
 
 (setq package-archives
-      '(("gnu" . "https://elpa.gnu.org/packages/")
-	("marmalade" . "https://marmalade-repo.org/packages/")
-	("melpa" . "https://melpa.org/packages/")))
+  '(("gnu" . "https://elpa.gnu.org/packages/")
+    ("marmalade" . "https://marmalade-repo.org/packages/")
+    ("melpa" . "https://melpa.org/packages/")))
 
 (package-initialize)
 
-(defvar my-packages '(cider
-                      ac-cider
-		      ac-js2
-		      auto-complete
-		      clj-refactor
-		      clojure-mode
-		      coffee-mode
-		      enh-ruby-mode
-		      flycheck
-		      flycheck-clojure
-		      flycheck-pos-tip
-		      graphviz-dot-mode
-		      impatient-mode
-		      js2-mode
-		      magit
-		      markdown-mode
-		      projectile
-		      sass-mode
-		      tern
-		      tern-auto-complete
-		      web-mode
-		      yaml-mode
-		      skewer-mode))
-
-(dolist (p my-packages)
-  (unless (package-installed-p p)
-    (package-install p)))
-
-;;(defun package (pkg)
-;;  (unless (package-installed-p pkg)
-;;    (package-install pkg)))
+(defun package (pkg)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
 #+END_SRC
+*** Someday try...
+- https://github.com/NicolasPetton/Indium
 *** projectile
-
 [[http://projectile.readthedocs.io/en/latest/][Projectile Docs]]
-
+| C-c p f   | Display a list of all files in the project.                  |
+| C-c p s g | Run grep on the files in the project.                        |
+| C-c p r   | Runs interactive query-replace on all files in the projects. |
+| C-c p C-h | Help                                                         |
 #+BEGIN_SRC emacs-lisp
+(package 'projectile)
+
+(projectile-global-mode)
+
 (global-set-key (kbd "C-x f") 'projectile-find-file)
 #+END_SRC
 *** auto-complete
-
 [[https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md][Auto-Complete User Manual]]
-
 #+BEGIN_SRC emacs-lisp
+(package 'auto-complete)
+(package 'ac-js2)
+
 (ac-config-default)
 
 (eval-after-load "auto-complete"
@@ -62,10 +43,11 @@
      (add-to-list 'ac-modes 'coffee-mode)))
 #+END_SRC
 *** cider
-
 [[https://cider.readthedocs.io/en/latest/][Cider Docs]]
-
 #+BEGIN_SRC emacs-lisp
+(package 'cider)
+(package 'ac-cider)
+
 (require 'ac-cider)
 (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
 (add-hook 'cider-mode-hook 'ac-cider-setup)
@@ -77,12 +59,18 @@
 #+END_SRC
 *** flycheck
 #+BEGIN_SRC emacs-lisp
+(package 'flycheck)
+(package 'flycheck-clojure)
+(package 'flycheck-pos-tip)
+
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 (eval-after-load 'flycheck
   '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 #+END_SRC
 *** flyspell
+https://www.emacswiki.org/emacs/FlySpell
+
 The german dictionary has been installed taken from here:
 http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 #+BEGIN_SRC emacs-lisp
@@ -98,6 +86,9 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 #+END_SRC
 *** tern
 #+BEGIN_SRC emacs-lisp
+(package 'tern)
+(package 'tern-auto-complete)
+
 (add-hook 'js-mode-hook (lambda () (tern-mode t)))
 (add-hook 'coffee-mode-hook (lambda () (tern-mode t)))
 
@@ -155,11 +146,17 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
                ("\\section{%s}" . "\\section*{%s}")))
 #+END_SRC
 *** magit (F5)
+[[https://magit.vc/][Magit Website]]
 #+BEGIN_SRC emacs-lisp
+(package 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "<f5>") 'magit-status)
 #+END_SRC
-*** clojure-mode
+*** clojure-mode & clj-refactor
 #+BEGIN_SRC emacs-lisp
+(package 'clojure-mode)
+(package 'clj-refactor)
+
 (defun my-clojure-mode-hook ()
   (clj-refactor-mode 1)
   (yas-minor-mode 1) ; for adding require/use/import statements
@@ -167,6 +164,19 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+#+END_SRC
+*** Other modes
+#+BEGIN_SRC emacs-lisp
+(package 'coffee-mode)
+(package 'enh-ruby-mode)
+(package 'graphviz-dot-mode)
+(package 'js2-mode)
+(package 'markdown-mode)
+(package 'sass-mode)
+(package 'yaml-mode)
+(package 'impatient-mode)
+(package 'web-mode)
+(package 'skewer-mode)
 #+END_SRC
 ** Theme
 #+BEGIN_SRC emacs-lisp
@@ -202,7 +212,7 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
     (indent-region (point-min) (point-max) nil)))
 (global-set-key [f12] 'indent-buffer)
 #+END_SRC
-** XEmacs (which I never use)
+** Emacs GUI (which I never use)
 #+BEGIN_SRC emacs-lisp
 (set-frame-font "Consolas 8")
 #+END_SRC
