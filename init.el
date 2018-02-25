@@ -2,7 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(org-babel-load-file "~/.emacs.d/config.org")
+(defun load-config ()
+  (org-babel-load-file "~/.emacs.d/config.org"))
+
+(load-config)
 
 (provide 'init)
 

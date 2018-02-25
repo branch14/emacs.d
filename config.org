@@ -17,12 +17,11 @@
 #+END_SRC
 *** Someday try...
 - 'indium
-- 'paredit
 - 'cider-eval-sexp-fu
 - 'aggressive-indent
 - 'company
 - 'find-file-in-project
-- 'dockerfile-mode
+- 'with-editor
 *** projectile
 [[http://projectile.readthedocs.io/en/latest/][Projectile Docs]]
 | C-c p f   | Display a list of all files in the project.                  |
@@ -65,14 +64,14 @@
 #+END_SRC
 *** flycheck
 #+BEGIN_SRC emacs-lisp
-(package 'flycheck)
-(package 'flycheck-clojure)
-;;(package 'flycheck-pos-tip)
+  (package 'flycheck)
+  (package 'flycheck-clojure)
+  ;;(package 'flycheck-pos-tip)
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
 
-;;(eval-after-load 'flycheck
-;;  '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
+  ;;(eval-after-load 'flycheck
+  ;;  '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 #+END_SRC
 *** flyspell
 https://www.emacswiki.org/emacs/FlySpell
@@ -163,32 +162,61 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 #+END_SRC
 *** clojure-mode & clj-refactor
 #+BEGIN_SRC emacs-lisp
-(package 'clojure-mode)
-(package 'clj-refactor)
+  (package 'clojure-mode)
+  (package 'clj-refactor)
 
-(defun my-clojure-mode-hook ()
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import statements
-  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-  (cljr-add-keybindings-with-prefix "C-c C-m"))
+  (defun reloaded-workflow-reload ()
+    (interactive)
+    (cider-read-and-eval "(integrant.repl/reset)"))
 
-(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+  (defun my-clojure-mode-hook ()
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1) ; for adding require/use/import statements
+    ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+    (cljr-add-keybindings-with-prefix "C-c C-m")
+    (local-set-key (kbd "C-c q") 'reloaded-workflow-reload))
+
+  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 #+END_SRC
-*** Other modes
+*** js2-mode
+#+BEGIN_SRC emacs-lisp
+(package 'js2-mode)
+
+(add-hook 'js-mode-hook 'js2-minor-mode)
+
+(setq js-indent-level 2)
+(setq js2-basic-offset 2)
+(setq js2-strict-missing-semi-warning nil)
+#+END_SRC
+*** Other modes & packages
 #+BEGIN_SRC emacs-lisp
 (package 'coffee-mode)
 (package 'enh-ruby-mode)
 (package 'graphviz-dot-mode)
-(package 'js2-mode)
 (package 'markdown-mode)
 (package 'sass-mode)
 (package 'yaml-mode)
 (package 'impatient-mode)
 (package 'web-mode)
 (package 'skewer-mode)
+(package 'dockerfile-mode)
+(package 'emmet-mode)
+(package 'ledger-mode)
+(package 'flycheck-ledger)
+(package 'haml-mode)
+(package 'nginx-mode)
+(package 'yasnippet)
+(package 'multiple-cursors)
+(package 'paredit)
+(package 'yaml-tomato)
+(package 'terraform-mode)
+(package 'ansible)
 #+END_SRC
 ** Theme
 #+BEGIN_SRC emacs-lisp
+(package 'color-theme-solarized)
+(package 'color-theme)
+
 (load-theme 'wheatgrass)
 #+END_SRC
 ** Basic Tuning
@@ -208,8 +236,6 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 #+END_SRC
 *** Indentation
 #+BEGIN_SRC emacs-lisp
-(setq js-indent-level 2)
-
 (add-hook 'java-mode-hook (lambda () (setq c-basic-offset 2)))
 #+END_SRC
 ** Custom Functions
@@ -234,10 +260,9 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 ;;    (">=" . ?≥)
 ;;    ("<=" . ?≤)
 ;;    ("*" . ?☣)))
-;;
-;;(add-hook 'emacs-lisp-mode-hook
-;;	  (lambda ()
-;;	    (push '(">=" . ?≥) prettify-symbols-alist)))
+(add-hook 'clojure-mode-hook
+	  (lambda ()
+	    (push '("fn" . ?λ) prettify-symbols-alist)))
 #+END_SRC
 ** Misc & Unsorted
 *** Nginx
@@ -247,11 +272,22 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 #+END_SRC
 *** Cider & Integrant
 #+BEGIN_SRC emacs-lisp
-(custom-set-variables
-  '(safe-local-variable-values
-     (quote
-       ((cider-refresh-after-fn . "integrant.repl/resume")
-        (cider-refresh-before-fn . "integrant.repl/suspend")))))
+  (custom-set-variables
+    '(safe-local-variable-values
+       (quote
+         ((cider-refresh-after-fn . "integrant.repl/resume")
+          (cider-refresh-before-fn . "integrant.repl/suspend")))))
+
+  (defun cider-connect-and-hide-window ()
+    (interactive)
+    (cider-connect "localhost" "45479")
+    (other-window 1)
+    (delete-other-windows))
+
+  (defun my-clojure-mode-hook2 ()
+    (local-set-key (kbd "C-c w") 'cider-connect-and-hide-window))
+
+  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook2)
 #+END_SRC
 *** Unsorted
 #+BEGIN_SRC emacs-lisp
