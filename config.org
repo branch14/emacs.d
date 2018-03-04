@@ -2,38 +2,37 @@
 ** Packages
 *** Package Setup
 #+BEGIN_SRC emacs-lisp
-(require 'package)
+  (require 'package)
 
-(setq package-archives
-  '(("gnu" . "https://elpa.gnu.org/packages/")
-    ("marmalade" . "https://marmalade-repo.org/packages/")
-    ("melpa" . "https://melpa.org/packages/")))
+  (setq package-archives
+    '(("gnu" . "https://elpa.gnu.org/packages/")
+      ("marmalade" . "https://marmalade-repo.org/packages/")
+      ("melpa" . "https://melpa.org/packages/")))
 
-(package-initialize)
+  (package-initialize)
 
-(defun package (pkg)
-  (unless (package-installed-p pkg)
-    (package-install pkg)))
+  (defun package (pkg)
+    (unless (package-installed-p pkg)
+      (package-install pkg)))
 #+END_SRC
-*** Someday try...
+*** Someday try
 - 'indium
-- 'cider-eval-sexp-fu
 - 'aggressive-indent
 - 'company
 - 'find-file-in-project
 - 'with-editor
 *** projectile
 [[http://projectile.readthedocs.io/en/latest/][Projectile Docs]]
-| C-c p f   | Display a list of all files in the project.                  |
-| C-c p s g | Run grep on the files in the project.                        |
-| C-c p r   | Runs interactive query-replace on all files in the projects. |
-| C-c p C-h | Help                                                         |
+| =C-c p f=   | Display a list of all files in the project.                  |
+| =C-c p s g= | Run grep on the files in the project.                        |
+| =C-c p r=   | Runs interactive query-replace on all files in the projects. |
+| =C-c p C-h= | Help                                                         |
 #+BEGIN_SRC emacs-lisp
-(package 'projectile)
+  (package 'projectile)
 
-(projectile-global-mode)
+  (projectile-global-mode)
 
-(global-set-key (kbd "C-x f") 'projectile-find-file)
+  (global-set-key (kbd "C-x f") 'projectile-find-file)
 #+END_SRC
 *** auto-complete
 [[https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md][Auto-Complete User Manual]]
@@ -48,20 +47,26 @@
      (add-to-list 'ac-modes 'coffee-mode)))
 #+END_SRC
 *** cider
-[[https://cider.readthedocs.io/en/latest/][Cider Docs]]
+- [[https://cider.readthedocs.io/en/latest/][Cider Docs]]
+- [[https://github.com/clojure-emacs/cider/blob/master/doc/interactive_programming.md][Cider Key Bindings]]
 #+BEGIN_SRC emacs-lisp
-(package 'cider)
-(package 'ac-cider)
+  (package 'cider)
+  (package 'ac-cider)
 
-(require 'ac-cider)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-(eval-after-load "auto-complete"
-  '(progn
-     (add-to-list 'ac-modes 'cider-mode)
-     (add-to-list 'ac-modes 'cider-repl-mode)))
+  (require 'ac-cider)
+  (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+  (add-hook 'cider-mode-hook 'ac-cider-setup)
+  (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+  (eval-after-load "auto-complete"
+    '(progn
+       (add-to-list 'ac-modes 'cider-mode)
+       (add-to-list 'ac-modes 'cider-repl-mode)))
+
+  (package 'cider-eval-sexp-fu)
+  ;;(add-hook 'cider-mode-hook
+  ;;  '(require 'cider-eval-sexp-fu))
 #+END_SRC
+
 *** flycheck
 #+BEGIN_SRC emacs-lisp
   (package 'flycheck)
@@ -88,19 +93,6 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
          (change (if (string= dic "deutsch") "english" "deutsch")))
     (ispell-change-dictionary change)
     (message "Dictionary switched from %s to %s" dic change)))
-#+END_SRC
-*** tern
-#+BEGIN_SRC emacs-lisp
-(package 'tern)
-(package 'tern-auto-complete)
-
-(add-hook 'js-mode-hook (lambda () (tern-mode t)))
-(add-hook 'coffee-mode-hook (lambda () (tern-mode t)))
-
-(eval-after-load 'tern
-  '(progn
-     (require 'tern-auto-complete)
-     (tern-ac-setup)))
 #+END_SRC
 *** org-mode
 #+BEGIN_SRC emacs-lisp
@@ -153,7 +145,7 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
                "\\documentclass{scrartcl}"
                ("\\section{%s}" . "\\section*{%s}")))
 #+END_SRC
-*** magit (F5)
+*** magit (=F5=/=C-x g=)
 [[https://magit.vc/][Magit Website]]
 #+BEGIN_SRC emacs-lisp
 (package 'magit)
@@ -178,15 +170,39 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 
   (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 #+END_SRC
-*** js2-mode
+*** JavaScript
 #+BEGIN_SRC emacs-lisp
 (package 'js2-mode)
+;;(package 'js2-refactor)
 
 (add-hook 'js-mode-hook 'js2-minor-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
 (setq js-indent-level 2)
 (setq js2-basic-offset 2)
 (setq js2-strict-missing-semi-warning nil)
+#+END_SRC
+**** tern
+#+BEGIN_SRC emacs-lisp
+(package 'tern)
+(package 'tern-auto-complete)
+
+(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+(add-hook 'coffee-mode-hook (lambda () (tern-mode t)))
+
+(eval-after-load 'tern
+  '(progn
+     (require 'tern-auto-complete)
+     (tern-ac-setup)))
+#+END_SRC
+
+*** free-keys
+Provides a function =free-keys=, that shows free keybindings for
+modkeys or prefixes.
+
+- [[https://github.com/Fuco1/free-keys][Github]]
+#+BEGIN_SRC emacs-lisp
+(package 'free-keys)
 #+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
@@ -265,6 +281,19 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 	    (push '("fn" . ?λ) prettify-symbols-alist)))
 #+END_SRC
 ** Misc & Unsorted
+*** pwgen
+Generate and insert passwords with =M-p=.
+#+BEGIN_SRC emacs-lisp
+  (defun generate-password ()
+    "Generates and inserts a new password"
+    (interactive)
+    (insert
+     (shell-command-to-string
+      (concat "pwgen -A " (read-string "Length: " "16") " 1"))))
+
+  ;; TODO maybe only set for org-mode
+  (global-set-key (kbd "M-p") 'generate-password)
+#+END_SRC
 *** Nginx
 #+BEGIN_SRC emacs-lisp
 (custom-set-variables
@@ -291,23 +320,23 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 #+END_SRC
 *** Unsorted
 #+BEGIN_SRC emacs-lisp
-(defun server-shutdown ()
-  "Save buffers, Quit, and Shutdown (kill) server"
-  (interactive)
-  (save-some-buffers)
-  (kill-emacs))
+  (defun server-shutdown ()
+    "Save buffers, Quit, and Shutdown (kill) server"
+    (interactive)
+    (save-some-buffers)
+    (kill-emacs))
 
-(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
+  (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
-(custom-set-variables
- '(org-file-apps
-   (quote
-    ((auto-mode . emacs)
-     ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" . default)
-     ("\\.pdf\\'" . "/usr/bin/evince %s"))))
- '(org-latex-table-caption-above nil))
+  (custom-set-variables
+   '(org-file-apps
+     (quote
+      ((auto-mode . emacs)
+       ("\\.mm\\'" . default)
+       ("\\.x?html?\\'" . default)
+       ("\\.pdf\\'" . "/usr/bin/evince %s"))))
+   '(org-latex-table-caption-above nil))
 
-(setq browse-url-browser-function 'browse-url-generic
-            browse-url-generic-program "chromium")
+  (setq browse-url-browser-function 'browse-url-generic
+              browse-url-generic-program "chromium")
 #+END_SRC
