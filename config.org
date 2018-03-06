@@ -307,7 +307,7 @@ Generate and insert passwords with =M-p=.
       (shell-command-on-region
        (point-min)
        (point-max)
-       (read-string "Command: " "jq -M .") t t)))
+       (read-string "Command: " "jq -M '.'") t t)))
 #+END_SRC
 
 *** Nginx
