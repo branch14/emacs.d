@@ -299,6 +299,17 @@ Generate and insert passwords with =M-p=.
   ;; TODO maybe only set for org-mode
   (global-set-key (kbd "M-p") 'generate-password)
 #+END_SRC
+*** pretty-print
+#+BEGIN_SRC emacs-lisp
+  (defun pipe-buffer ()
+    (interactive)
+    (save-excursion
+      (shell-command-on-region
+       (point-min)
+       (point-max)
+       (read-string "Command: " "jq -M .") t t)))
+#+END_SRC
+
 *** Nginx
 #+BEGIN_SRC emacs-lisp
   (custom-set-variables
