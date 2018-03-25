@@ -266,6 +266,20 @@ modkeys or prefixes.
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode)
 #+END_SRC
+*** web-mode
+- http://web-mode.org/
+#+BEGIN_SRC emacs-lisp
+  (package 'web-mode)
+
+  ;; adjust indents for web-mode to 2 spaces
+  (defun my-web-mode-hook ()
+    "Hooks for Web mode. Adjust indents"
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
+
+  (add-hook 'web-mode-hook  'my-web-mode-hook)
+#+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
   (package 'coffee-mode)
