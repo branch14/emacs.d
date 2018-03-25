@@ -280,6 +280,16 @@ modkeys or prefixes.
 
   (add-hook 'web-mode-hook  'my-web-mode-hook)
 #+END_SRC
+*** multiple-cursors
+- https://github.com/magnars/multiple-cursors.el
+#+BEGIN_SRC emacs-lisp
+  (package 'multiple-cursors)
+
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+#+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
   (package 'coffee-mode)
