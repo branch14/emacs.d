@@ -32,6 +32,12 @@ while Smex is active, for the currently selected command
   ;; old M-x
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 #+END_SRC
+*** expand-region
+- https://github.com/magnars/expand-region.el
+#+BEGIN_SRC emacs-lisp
+  (package 'expand-region)
+  (global-set-key (kbd "C-=") 'er/expand-region)
+#+END_SRC
 *** projectile
 [[http://projectile.readthedocs.io/en/latest/][Projectile Docs]]
 | =C-c p f=   | Display a list of all files in the project.                  |
