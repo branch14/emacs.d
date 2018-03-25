@@ -290,6 +290,14 @@ modkeys or prefixes.
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
   (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+END_SRC
+*** aggressive-indent-mode
+- https://github.com/Malabarba/aggressive-indent-mode
+#+BEGIN_SRC emacs-lisp
+  (package 'aggressive-indent)
+
+  (add-hook 'css-mode-hook #'aggressive-indent-mode)
+  (add-hook 'js2-mode-hook #'aggressive-indent-mode)
+#+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
   (package 'coffee-mode)
