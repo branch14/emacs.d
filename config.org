@@ -298,6 +298,13 @@ modkeys or prefixes.
   (add-hook 'css-mode-hook #'aggressive-indent-mode)
   (add-hook 'js2-mode-hook #'aggressive-indent-mode)
 #+END_SRC
+*** crux
+- https://github.com/bbatsov/crux
+#+BEGIN_SRC emacs-lisp
+  ;; currently broken in 24.5.1
+  ;; (package 'crux)
+  ;; (global-key-binding [C-k] 'crux-smart-kill-line)
+#+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
   (package 'coffee-mode)
