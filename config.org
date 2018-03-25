@@ -479,3 +479,9 @@ Generate and insert passwords with =M-p=.
   (setq browse-url-browser-function 'browse-url-generic
               browse-url-generic-program "chromium")
 #+END_SRC
+** References
+
+- [[https://www.gnu.org/software/emacs/manual/html_node/eintr/index.html][An Introduction to Programming in Emacs Lisp]]
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html][Emacs Lisp Reference]]
+- https://www.youtube.com/user/emacsrocks/videos
+- https://github.com/emacs-tw/awesome-emacs
