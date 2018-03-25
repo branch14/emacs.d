@@ -305,6 +305,38 @@ modkeys or prefixes.
   ;; (package 'crux)
   ;; (global-key-binding [C-k] 'crux-smart-kill-line)
 #+END_SRC
+*** hideshow
+- https://www.emacswiki.org/emacs/HideShow
+| ~C-c @ C-M-s~ | show all         |
+| ~C-c @ C-M-h~ | hide all         |
+| ~C-c @ C-s~   | show block       |
+| ~C-c @ C-h~   | hide block       |
+| ~C-c @ C-c~   | toggle hide/show |
+#+BEGIN_SRC emacs-lisp
+  (defun toggle-selective-display (column)
+    (interactive "P")
+    (set-selective-display
+     (or column
+         (unless selective-display
+           (1+ (current-column))))))
+
+  (defun toggle-hiding (column)
+    (interactive "P")
+    (if hs-minor-mode
+        (if (condition-case nil
+                (hs-toggle-hiding)
+              (error t))
+            (hs-show-all))
+      (toggle-selective-display column)))
+
+  (global-set-key (kbd "C-+") 'toggle-hiding)
+  (global-set-key (kbd "C-\\") 'toggle-selective-display)
+
+  (add-hook 'emacs-lisp-mode-hook 'hs-minor-mode)
+  (add-hook 'java-mode-hook       'hs-minor-mode)
+  (add-hook 'sh-mode-hook         'hs-minor-mode)
+  (add-hook 'js-mode-hook         'hs-minor-mode)
+#+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
   (package 'coffee-mode)
