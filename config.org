@@ -259,6 +259,13 @@ modkeys or prefixes.
   (package 'yasnippet)
   (yas-global-mode 1)
 #+END_SRC
+*** emmet-mode
+#+BEGIN_SRC emacs-lisp
+  (package 'emmet-mode)
+
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode)
+#+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
   (package 'coffee-mode)
