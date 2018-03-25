@@ -16,6 +16,22 @@
       (package-refresh-contents)
       (package-install pkg)))
 #+END_SRC
+*** smex
+- https://github.com/nonsequitur/smex
+
+while Smex is active, for the currently selected command
+
+| ~C-h f~ | runs describe-function  |
+| ~M-.~   | jumps to the definition |
+| ~C-h w~ | shows the key bindings  |
+
+#+BEGIN_SRC emacs-lisp
+  (package 'smex)
+  (global-set-key (kbd "M-x") 'smex)
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+  ;; old M-x
+  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+#+END_SRC
 *** projectile
 [[http://projectile.readthedocs.io/en/latest/][Projectile Docs]]
 | =C-c p f=   | Display a list of all files in the project.                  |
