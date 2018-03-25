@@ -16,12 +16,6 @@
       (package-refresh-contents)
       (package-install pkg)))
 #+END_SRC
-*** Someday try
-- 'indium
-- 'aggressive-indent
-- 'company
-- 'find-file-in-project
-- 'with-editor
 *** projectile
 [[http://projectile.readthedocs.io/en/latest/][Projectile Docs]]
 | =C-c p f=   | Display a list of all files in the project.                  |
