@@ -254,6 +254,11 @@ modkeys or prefixes.
 
   (setq css-indent-offset 2)
 #+END_SRC
+*** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (package 'yasnippet)
+  (yas-global-mode 1)
+#+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
   (package 'coffee-mode)
