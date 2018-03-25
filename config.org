@@ -234,7 +234,12 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
        (require 'tern-auto-complete)
        (tern-ac-setup)))
 #+END_SRC
+**** json
+#+BEGIN_SRC emacs-lisp
+  (package 'json-mode)
 
+  ;; add hook run pretty print before save
+#+END_SRC
 *** free-keys
 Provides a function =free-keys=, that shows free keybindings for
 modkeys or prefixes.
