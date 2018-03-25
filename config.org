@@ -339,22 +339,18 @@ modkeys or prefixes.
 #+END_SRC
 *** Other modes & packages
 #+BEGIN_SRC emacs-lisp
+  (package 'impatient-mode)
   (package 'coffee-mode)
   (package 'enh-ruby-mode)
   (package 'graphviz-dot-mode)
   (package 'markdown-mode)
   (package 'yaml-mode)
-  (package 'impatient-mode)
-  (package 'web-mode)
   (package 'skewer-mode)
   (package 'dockerfile-mode)
-  (package 'emmet-mode)
   (package 'ledger-mode)
   (package 'flycheck-ledger)
   (package 'haml-mode)
   (package 'nginx-mode)
-  (package 'yasnippet)
-  (package 'multiple-cursors)
   (package 'paredit)
   (package 'yaml-tomato)
   (package 'terraform-mode)
