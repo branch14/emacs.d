@@ -195,6 +195,7 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 #+BEGIN_SRC emacs-lisp
   (package 'clojure-mode)
   (package 'clj-refactor)
+  (package 'clojure-snippets)
 
   (defun reloaded-workflow-reload ()
     (interactive)
