@@ -406,6 +406,8 @@ every mode.
 
 *** Other modes & packages
 
+**** Modes
+
 #+BEGIN_SRC emacs-lisp
   (package 'impatient-mode)
   (package 'coffee-mode)
@@ -586,5 +588,6 @@ Generate and insert passwords with =M-p=.
 
 - [[https://www.gnu.org/software/emacs/manual/html_node/eintr/index.html][An Introduction to Programming in Emacs Lisp]]
 - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html][Emacs Lisp Reference]]
+  - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Key-Binding-Conventions.html][Key Binding Conventions]]
 - https://www.youtube.com/user/emacsrocks/videos
 - https://github.com/emacs-tw/awesome-emacs
