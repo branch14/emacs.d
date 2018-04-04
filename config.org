@@ -296,9 +296,20 @@ modkeys or prefixes.
 
 *** yasnippet
 
+Activate th yasnippets minor mode globaly, meaning in every mode.
+
 #+BEGIN_SRC emacs-lisp
   (package 'yasnippet)
   (yas-global-mode 1)
+#+END_SRC
+
+This allows to have snippets in =fundamental-mode=, which works in
+every mode.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'yas-minor-mode-hook
+            (lambda ()
+              (yas-activate-extra-mode 'fundamental-mode)))
 #+END_SRC
 
 *** emmet-mode
