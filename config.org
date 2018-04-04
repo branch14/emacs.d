@@ -395,6 +395,13 @@ every mode.
   (add-hook 'java-mode-hook       'hs-minor-mode)
   (add-hook 'sh-mode-hook         'hs-minor-mode)
   (add-hook 'js-mode-hook         'hs-minor-mode)
+
+  (define-prefix-command 'hideshow-map)
+  (global-set-key (kbd "C-c h") 'hideshow-map)
+  (global-set-key (kbd "C-c h h") 'toggle-hiding)
+  (global-set-key (kbd "C-c h s") 'toggle-hiding)
+  (global-set-key (kbd "C-c h M-h") 'toggle-hiding)
+  (global-set-key (kbd "C-c h M-s") 'toggle-hiding)
 #+END_SRC
 
 *** Other modes & packages
