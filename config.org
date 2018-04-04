@@ -407,25 +407,42 @@ modkeys or prefixes.
   (package 'skewer-mode)
   (package 'dockerfile-mode)
   (package 'ledger-mode)
-  (package 'flycheck-ledger)
   (package 'haml-mode)
   (package 'nginx-mode)
-  (package 'paredit)
-  (package 'yaml-tomato)
   (package 'terraform-mode)
   (package 'ansible)
+  (package 'ini-mode)
 #+END_SRC
 
-** Theme
+**** Other Packages
+
+#+BEGIN_SRC emacs-lisp
+  (package 'flycheck-ledger)
+  (package 'paredit)
+  (package 'yaml-tomato)
+#+END_SRC
+
+** Themes & Colors
 
 #+BEGIN_SRC emacs-lisp
   (package 'color-theme-solarized)
   (package 'color-theme)
 
   (load-theme 'wheatgrass)
+
+  (set-face-foreground 'minibuffer-prompt "white")
 #+END_SRC
 
 ** Basic Tuning
+
+Put settings set by custom into separate file
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file t)
+#+END_SRC
+
+Other stuff
 
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode 0)
@@ -433,13 +450,22 @@ modkeys or prefixes.
   (scroll-bar-mode -1)
   (setq inhibit-startup-message t)
 
+  ;;(setq backup-directory-alist
+  ;;      `((".*" . ,temporary-file-directory)))
+  ;;(setq auto-save-file-name-transforms
+  ;;      `((".*" ,temporary-file-directory t)))
 
+  (setq vc-follow-symlinks t)
+
+  (setq sentence-end-double-space nil)
+
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+  (global-auto-revert-mode t)
 
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
   (show-paren-mode 1)
-
-  (set-face-foreground 'minibuffer-prompt "white")
 
   (setq backup-directory-alist `(("." . "~/.saves")))
 #+END_SRC
@@ -555,15 +581,6 @@ Generate and insert passwords with =M-p=.
     (kill-emacs))
 
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
-
-  (custom-set-variables
-   '(org-file-apps
-     (quote
-      ((auto-mode . emacs)
-       ("\\.mm\\'" . default)
-       ("\\.x?html?\\'" . default)
-       ("\\.pdf\\'" . "/usr/bin/evince %s"))))
-   '(org-latex-table-caption-above nil))
 
   (setq browse-url-browser-function 'browse-url-generic
               browse-url-generic-program "chromium")

@@ -4,12 +4,13 @@
 
 (defun load-config ()
   "Load the literate configuration from `config.org`."
+  (interactive)
   (org-babel-load-file "~/.emacs.d/config.org"))
 
 ;; load the configuration on initial startup
 (load-config)
 
-(defconst save-triggers-reload-config '("init.el" "config.org"))
+(defconst save-triggers-reload-config '("init.el" "config.org" "custom.el"))
 
 (defun reload-config ()
   "Reload config when the saved file is a config file."
