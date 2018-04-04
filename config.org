@@ -67,14 +67,14 @@ while Smex is active, for the currently selected command
 *** auto-complete
 - [[https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md][Auto-Complete User Manual]]
 #+BEGIN_SRC emacs-lisp
-  (package 'auto-complete)
-  (package 'ac-js2)
-
-  (ac-config-default)
-
-  (eval-after-load "auto-complete"
-    '(progn
-       (add-to-list 'ac-modes 'coffee-mode)))
+  ;;(package 'auto-complete)
+  ;;(package 'ac-js2)
+  ;;
+  ;;(ac-config-default)
+  ;;
+  ;;(eval-after-load "auto-complete"
+  ;;  '(progn
+  ;;     (add-to-list 'ac-modes 'coffee-mode)))
 #+END_SRC
 
 *** cider
@@ -255,16 +255,16 @@ http://fmg-www.cs.ucla.edu/geoff/ispell-dictionaries.html#German-dicts
 **** tern
 
 #+BEGIN_SRC emacs-lisp
-  (package 'tern)
-  (package 'tern-auto-complete)
-
-  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
-  (add-hook 'coffee-mode-hook (lambda () (tern-mode t)))
-
-  (eval-after-load 'tern
-    '(progn
-       (require 'tern-auto-complete)
-       (tern-ac-setup)))
+  ;;(package 'tern)
+  ;;(package 'tern-auto-complete)
+  ;;
+  ;;(add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  ;;(add-hook 'coffee-mode-hook (lambda () (tern-mode t)))
+  ;;
+  ;;(eval-after-load 'tern
+  ;;  '(progn
+  ;;     (require 'tern-auto-complete)
+  ;;     (tern-ac-setup)))
 #+END_SRC
 
 **** json
