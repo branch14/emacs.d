@@ -552,22 +552,9 @@ Generate and insert passwords with =M-p=.
        (read-string "Command: " "jq -M .") t t)))
 #+END_SRC
 
-*** Nginx
-
-#+BEGIN_SRC emacs-lisp
-  (custom-set-variables
-   '(nginx-indent-level 2))
-#+END_SRC
-
 *** Cider & Integrant
 
 #+BEGIN_SRC emacs-lisp
-  (custom-set-variables
-    '(safe-local-variable-values
-       (quote
-         ((cider-refresh-after-fn . "integrant.repl/resume")
-          (cider-refresh-before-fn . "integrant.repl/suspend")))))
-
   (defun cider-connect-and-hide-window ()
     (interactive)
     (cider-connect "localhost" "45479")
