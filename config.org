@@ -42,7 +42,9 @@ while Smex is active, for the currently selected command
 
 #+BEGIN_SRC emacs-lisp
   (package 'expand-region)
+  ;; why does this not work?
   (global-set-key (kbd "C-=") 'er/expand-region)
+  (global-set-key (kbd "C-c e") 'er/expand-region)
 #+END_SRC
 
 *** projectile
