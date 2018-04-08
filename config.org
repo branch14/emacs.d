@@ -618,3 +618,12 @@ Generate and insert passwords with =M-p=.
   - [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Key-Binding-Conventions.html][Key Binding Conventions]]
 - https://www.youtube.com/user/emacsrocks/videos
 - https://github.com/emacs-tw/awesome-emacs
+** Notes
+
+*** On Key Bindings
+
+- ~C-c <letter>~ is reserverd for the user (Yay!)
+
+*** Buitin Commands that are hard to remember
+
+| ~C-u M-!~ | exec shell command and insert output |
