@@ -435,13 +435,19 @@ every mode.
 
 ** Themes & Colors
 
+- http://ciembor.github.io/4bit/
+- https://github.com/emacs-jp/replace-colorthemes
+- [[https://github.com/emacs-jp/replace-colorthemes/blob/master/screenshots.md][Screenshots]]
+
 #+BEGIN_SRC emacs-lisp
-  (package 'color-theme-solarized)
-  (package 'color-theme)
+  (package 'color-theme-modern)
 
-  (load-theme 'wheatgrass)
+  (defconst theme 'desert)
 
-  (set-face-foreground 'minibuffer-prompt "white")
+  (load-theme theme t t)
+  (enable-theme theme)
+
+  ;;(set-face-foreground 'minibuffer-prompt "darkgray")
 #+END_SRC
 
 ** Basic Tuning
