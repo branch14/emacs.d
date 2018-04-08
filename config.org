@@ -404,6 +404,14 @@ every mode.
   (global-set-key (kbd "C-c h M-s") 'toggle-hiding)
 #+END_SRC
 
+*** ini-mode
+#+BEGIN_SRC emacs-lisp
+  (package 'ini-mode)
+
+
+  ;; *.colorscheme
+#+END_SRC
+
 *** Other modes & packages
 
 **** Modes
@@ -422,7 +430,6 @@ every mode.
   (package 'nginx-mode)
   (package 'terraform-mode)
   (package 'ansible)
-  (package 'ini-mode)
 #+END_SRC
 
 **** Other Packages
